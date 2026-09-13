@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>/</loc></url>
-<url><loc>/compress-pdf.html</loc></url>
-<url><loc>/merge-pdf.html</loc></url>
-<url><loc>/split-pdf.html</loc></url>
-<url><loc>/pdf-to-jpg.html</loc></url>
-<url><loc>/jpg-to-pdf.html</loc></url>
-<url><loc>/word-to-pdf.html</loc></url>
-<url><loc>/excel-to-pdf.html</loc></url>
-<url><loc>/compress-image.html</loc></url>
-<url><loc>/resize-image.html</loc></url>
+  <url><loc>https://toolbox-production-d898.up.railway.app/</loc></url>
+  <url><loc>https://toolbox-production-d898.up.railway.app/compress-pdf.html</loc></url>
+  <url><loc>https://toolbox-production-d898.up.railway.app/merge-pdf.html</loc></url>
+  <url><loc>https://toolbox-production-d898.up.railway.app/split-pdf.html</loc></url>
+  <url><loc>https://toolbox-production-d898.up.railway.app/pdf-to-jpg.html</loc></url>
+  <url><loc>https://toolbox-production-d898.up.railway.app/jpg-to-pdf.html</loc></url>
+  <url><loc>https://toolbox-production-d898.up.railway.app/word-to-pdf.html</loc></url>
+  <url><loc>https://toolbox-production-d898.up.railway.app/excel-to-pdf.html</loc></url>
+  <url><loc>https://toolbox-production-d898.up.railway.app/compress-image.html</loc></url>
+  <url><loc>https://toolbox-production-d898.up.railway.app/resize-image.html</loc></url>
 </urlset>
