@@ -1,0 +1,2235 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ToolBox — أدوات مجانية للملفات والصور</title>
+    <meta name="description" content="ToolBox أدوات مجانية وسريعة لضغط الملفات والصور وتحويلها بسهولة.">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-soft: #eff6ff;
+            --text: #111827;
+            --muted: #64748b;
+            --border: #cbd5e1;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --shadow: 0 18px 50px rgba(15, 23, 42, .08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Header */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(255,255,255,.94);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav {
+            width: min(1180px, 92%);
+            min-height: 72px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            color: #475569;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .lang {
+            border: 1px solid var(--border);
+            background: var(--white);
+            color: var(--text);
+            padding: 9px 14px;
+            border-radius: 11px;
+            font-weight: 700;
+        }
+
+        /* Hero */
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            padding: 55px 20px 45px;
+            background:
+                radial-gradient(circle at 50% 0, #dbeafe 0, rgba(239,246,255,.55) 28%, transparent 58%);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(37,99,235,.07);
+            top: -180px;
+            left: -100px;
+        }
+
+        .hero-content {
+            position: relative;
+            width: min(850px, 100%);
+            margin: auto;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--white);
+            border: 1px solid #dbeafe;
+            color: var(--primary);
+            padding: 8px 15px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 800;
+            box-shadow: 0 8px 25px rgba(37,99,235,.07);
+            margin-bottom: 22px;
+        }
+
+        .badge::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            background: #22c55e;
+            border-radius: 50%;
+        }
+
+        h1 {
+            font-size: clamp(40px, 7vw, 70px);
+            line-height: 1.08;
+            letter-spacing: -2.8px;
+            margin-bottom: 22px;
+        }
+
+        .hero p {
+            max-width: 670px;
+            margin: auto;
+            color: var(--muted);
+            font-size: 18px;
+            line-height: 1.9;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            border-radius: 13px;
+            padding: 12px 18px;
+            font-weight: 800;
+            border: 1px solid transparent;
+            transition: .2s ease;
+        }
+
+        .primary-btn {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 25px rgba(37,99,235,.2);
+        }
+
+        .primary-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .secondary-btn {
+            background: white;
+            border-color: var(--border);
+            color: var(--text);
+        }
+
+        .secondary-btn:hover {
+            border-color: #bfdbfe;
+        }
+
+        /* Main */
+
+        main {
+            width: min(1180px, 92%);
+            margin: 0 auto 80px;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 20px;
+            margin: 10px 0 22px;
+        }
+
+        .section-heading h2 {
+            font-size: 28px;
+            letter-spacing: -.7px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* Tools */
+
+        .tools {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .tool {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px;
+            min-height: 190px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 30px rgba(15,23,42,.035);
+            transition: .22s ease;
+        }
+
+        .tool.active,
+        .tool:not(.coming):hover {
+            transform: translateY(-4px);
+            border-color: #bfdbfe;
+            box-shadow: var(--shadow);
+        }
+
+        .tool-icon {
+            width: 48px;
+            height: 52px;
+            display: grid;
+            place-items: center;
+            background: var(--primary-soft);
+            border-radius: 15px;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .tool-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: var(--primary);
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .tool h3 {
+            font-size: 17px;
+            margin-bottom: 7px;
+        }
+
+        .tool p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.75;
+        }
+
+        .tool-action {
+            margin-top: auto;
+            padding-top: 18px;
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 800;
+            border: 0;
+            background: transparent;
+            text-align: right;
+        }
+
+        .coming {
+            opacity: .68;
+        }
+
+        .coming .tool-action {
+            color: var(--muted);
+            cursor: default;
+        }
+
+        /* Tool workspace */
+
+        #workspace {
+            display: none;
+            margin-top: 32px;
+            scroll-margin-top: 95px;
+        }
+
+        #workspace.visible {
+            display: block;
+        }
+
+        .workspace-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: clamp(18px, 4vw, 30px);
+            box-shadow: var(--shadow);
+        }
+
+        .workspace-top {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 28px;
+        }
+
+        .workspace-icon {
+            width: 60px;
+            height: 60px;
+            display: grid;
+            place-items: center;
+            background: var(--primary-soft);
+            border-radius: 18px;
+            font-size: 27px;
+            margin: 0 auto 15px;
+        }
+
+        .workspace-top h2 {
+            font-size: clamp(26px, 5vw, 38px);
+            letter-spacing: -1px;
+        }
+
+        .workspace-top p {
+            color: var(--muted);
+            margin-top: 8px;
+            font-size: 15px;
+        }
+
+        .dropzone {
+            max-width: 760px;
+            margin: auto;
+            border: 2px dashed #cbd5e1;
+            border-radius: 22px;
+            padding: 32px 20px;
+            text-align: center;
+            background: #f8fafc;
+            transition: .2s ease;
+        }
+
+        .dropzone.dragover {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .upload-icon {
+            width: 58px;
+            height: 58px;
+            margin: auto auto 15px;
+            display: grid;
+            place-items: center;
+            border-radius: 16px;
+            background: white;
+            border: 1px solid var(--border);
+        }
+
+        .upload-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .dropzone h3 {
+            font-size: 19px;
+            margin-bottom: 5px;
+        }
+
+        .dropzone p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .choose-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            border: 0;
+            border-radius: 12px;
+            padding: 12px 19px;
+            font-weight: 800;
+        }
+
+        .choose-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .hint {
+            display: block;
+            color: #94a3b8;
+            font-size: 12px;
+            margin-top: 12px;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        /* File preview */
+
+        .file-box {
+            display: none;
+            max-width: 760px;
+            margin: 18px auto 0;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 15px;
+            background: white;
+        }
+
+        .file-box.visible {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .file-symbol {
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: #fee2e2;
+            font-size: 21px;
+        }
+
+        .file-info {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .file-name {
+            font-weight: 800;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-size {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .remove-btn {
+            border: 0;
+            background: transparent;
+            color: var(--muted);
+            padding: 8px;
+            font-size: 18px;
+        }
+
+        .compress-btn {
+            display: none;
+            width: 100%;
+            max-width: 760px;
+            margin: 18px auto 0;
+            border: 0;
+            border-radius: 14px;
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            font-weight: 900;
+            font-size: 16px;
+            box-shadow: 0 10px 25px rgba(37,99,235,.18);
+        }
+
+        .compress-btn.visible {
+            display: block;
+        }
+
+        .compress-btn:disabled {
+            opacity: .6;
+            cursor: wait;
+        }
+
+        /* Progress */
+
+        .status {
+            display: none;
+            max-width: 760px;
+            margin: 20px auto 0;
+            text-align: center;
+        }
+
+        .status.visible {
+            display: block;
+        }
+
+        .spinner {
+            width: 30px;
+            height: 30px;
+            margin: 0 auto 10px;
+            border: 3px solid #dbeafe;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .status p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* Result */
+
+        .result {
+            display: none;
+            max-width: 760px;
+            margin: 20px auto 0;
+            border: 1px solid #bbf7d0;
+            background: #f0fdf4;
+            border-radius: 16px;
+            padding: 18px;
+        }
+
+        .result.visible {
+            display: block;
+        }
+
+        .result-head {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 17px;
+        }
+
+        .success-icon {
+            width: 43px;
+            height: 43px;
+            display: grid;
+            place-items: center;
+            background: #dcfce7;
+            color: var(--success);
+            border-radius: 50%;
+            font-weight: 900;
+        }
+
+        .result-head h3 {
+            font-size: 18px;
+        }
+
+        .result-head p {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .stat {
+            background: white;
+            border: 1px solid #dcfce7;
+            border-radius: 13px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .stat span {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            margin-bottom: 3px;
+        }
+
+        .stat strong {
+            font-size: 15px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .download-btn,
+        .again-btn {
+            flex: 1;
+            text-align: center;
+            border-radius: 12px;
+            padding: 12px;
+            font-weight: 800;
+        }
+
+        .download-btn {
+            background: var(--success);
+            color: white;
+        }
+
+        .again-btn {
+            border: 1px solid var(--border);
+            background: white;
+        }
+
+        /* Info */
+
+        .info-section {
+            margin-top: 45px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 18px;
+        }
+
+        .info-card strong {
+            display: block;
+            margin-bottom: 7px;
+        }
+
+        .info-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.75;
+        }
+
+        /* Footer */
+
+        footer {
+            background: white;
+            border-top: 1px solid var(--border);
+            padding: 35px 20px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 900px) {
+            .tools {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav {
+                min-height: 64px;
+            }
+
+            .hero {
+                padding: 48px 18px 35px;
+            }
+
+            h1 {
+                letter-spacing: -1.8px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            main {
+                width: 92%;
+            }
+
+            .section-heading {
+                align-items: start;
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .tools {
+                grid-template-columns: 1fr;
+            }
+
+            .tool {
+                min-height: 175px;
+            }
+
+            .workspace-card {
+                border-radius: 18px;
+                padding: 18px 14px;
+            }
+
+            .dropzone {
+                padding: 30px 14px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .result-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <nav class="nav">
+        <a href="#" class="logo">Tool<span>Box</span></a>
+
+        <div class="nav-links">
+            <a href="#tools">الأدوات</a>
+            
+        </div>
+
+        <button class="lang" type="button">العربية</button>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <div class="badge">أدوات مجانية وسريعة</div>
+
+        <h1>أدواتك في مكان واحد</h1>
+
+        <p>
+            أدوات عملية للـPDF والصور والملفات.
+            ارفع ملفك، استخدم الأداة، واحصل على النتيجة مباشرة بدون تسجيل أو خطوات معقدة.
+        </p>
+
+        <div class="hero-actions">
+            <button class="primary-btn" onclick="openCompressor()">
+                ابدأ بضغط PDF
+            </button>
+
+            <a class="secondary-btn" href="#tools">
+                استكشف الأدوات
+            </a>
+        </div>
+    </div>
+</section>
+
+<main>
+
+    <section id="tools">
+        <div class="section-heading">
+            <div>
+                <h2>الأدوات</h2>
+                <p></p>
+            </div>
+            <span></span>
+        </div>
+
+        <div class="tools">
+
+            <article class="tool" data-tool="splitpdf">
+                <div class="tool-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M6 3h8l4 4v14H6z"/>
+                        <path d="M14 3v5h5"/>
+                        <path d="M9 11h6M9 15h6"/>
+                        <path d="M12 9v10"/>
+                    </svg>
+                </div>
+                <h3>تقسيم PDF</h3>
+                <p>اختر الصفحات التي تحتاجها وأنشئ ملف PDF جديدًا منها.</p>
+                <button class="tool-action" onclick="openSplitTool()">استخدام الأداة</button>
+            </article>
+
+            <article class="tool" data-tool="mergepdf">
+                <div class="tool-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M6 3h8l4 4v14H6z"/>
+                        <path d="M14 3v5h5"/>
+                        <path d="M9 12h6M9 16h6"/>
+                        <path d="M12 10v8"/>
+                    </svg>
+                </div>
+                <h3>دمج PDF</h3>
+                <p>ادمج عدة ملفات PDF في ملف واحد بالترتيب الذي تختاره.</p>
+                <button class="tool-action" onclick="openMergeTool()">استخدام الأداة</button>
+            </article>
+
+            <article class="tool" data-tool="excel2pdf">
+                <div class="tool-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M6 3h8l4 4v14H6z"/>
+                        <path d="M14 3v5h5"/>
+                        <path d="M9 12l6 6M15 12l-6 6"/>
+                    </svg>
+                </div>
+                <h3>تحويل Excel إلى PDF</h3>
+                <p>حوّل ملفات Excel إلى PDF بسرعة وسهولة.</p>
+                <button class="tool-action" onclick="openExcelTool()">استخدام الأداة</button>
+            </article>
+
+            <article class="tool" data-tool="word2pdf">
+                <div class="tool-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M6 3h8l4 4v14H6z"/>
+                        <path d="M14 3v5h5"/>
+                        <path d="M8.5 11.5l1.5 5 2-5 2 5 1.5-5"/>
+                    </svg>
+                </div>
+                <h3>تحويل Word إلى PDF</h3>
+                <p>حوّل ملفات Word إلى PDF بسرعة وسهولة.</p>
+                <button class="tool-action" onclick="openWordTool()">استخدام الأداة</button>
+            </article>
+
+            <article class="tool" data-tool="pdf2jpg">
+                <div class="tool-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M6 3h8l4 4v14H6z"/>
+                        <path d="M14 3v5h5"/>
+                        <path d="M8 12h8M8 16h6"/>
+                    </svg>
+                </div>
+                <h3>تحويل PDF إلى JPG</h3>
+                <p>حوّل صفحات ملفات PDF إلى صور JPG بسهولة.</p>
+                <button class="tool-action" onclick="openPdfJpgTool()">استخدام الأداة</button>
+            </article>
+
+            <article class="tool" id="compressCard">
+                <div class="tool-icon">
+<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>
+</div>
+                <h3>ضغط PDF</h3>
+                <p>
+                    قلل حجم ملفات PDF لتسهيل المشاركة والرفع مع الحفاظ على جودة مناسبة.
+                </p>
+
+                <button class="tool-action" onclick="openCompressor()">
+                    استخدام الأداة
+                </button>
+            </article>
+
+            <article class="tool">
+                <div class="tool-icon">
+<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.5"/><path d="m4 17 5-5 3 3 2-2 6 5"/></svg>
+</div>
+                <h3>تحويل JPG إلى PDF</h3>
+                <p>
+                    حوّل صورة واحدة أو عدة صور إلى ملف PDF واحد بسهولة.
+                </p>
+                <button class="tool-action" onclick="openImageTool('jpg2pdf')">تحويل إلى PDF</button>
+            </article>
+
+            <article class="tool">
+                <div class="tool-icon">
+<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 7 8-4 8 4-8 4z"/><path d="M4 7v10l8 4 8-4V7"/><path d="M12 11v10"/></svg>
+</div>
+                <h3>ضغط الصور</h3>
+                <p>
+                    صغّر حجم الصور لتوفير مساحة وتسريع المشاركة والرفع.
+                </p>
+                <button class="tool-action" onclick="openImageTool('compress')">ضغط الصورة</button>
+            </article>
+
+            <article class="tool">
+                <div class="tool-icon">
+<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20 20 4"/><path d="M4 15v5h5M9 20l-5-5M20 9V4h-5M15 4l5 5"/></svg>
+</div>
+                <h3>تغيير حجم الصور</h3>
+                <p>
+                    غيّر أبعاد الصور بسرعة لتناسب المواقع والتطبيقات.
+                </p>
+                <button class="tool-action" onclick="openImageTool('resize')">تغيير الحجم</button>
+            </article>
+
+        </div>
+    </section>
+
+    <section id="workspace">
+        <div class="workspace-card">
+
+            <div class="workspace-top">
+                <div class="workspace-icon">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6 2h8l4 4v16H6z"/>
+      <path d="M14 2v5h5"/>
+      <path d="M9 13h6"/>
+      <path d="M9 17h6"/>
+    </svg>
+</div>
+                <h2>ضغط PDF</h2>
+                <p>
+                    اختر ملف PDF من جهازك وسنقوم بتقليل حجمه تلقائيًا.
+                </p>
+            </div>
+
+            <div class="dropzone" id="dropzone">
+                <div class="upload-icon">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 16V4"/>
+      <path d="M7 9l5-5 5 5"/>
+      <path d="M5 20h14"/>
+    </svg>
+</div>
+
+                <h3>اسحب ملف PDF هنا</h3>
+
+                <p>أو اختر ملفًا من جهازك</p>
+
+                <label class="choose-btn" for="fileInput">
+                    اختيار ملف PDF
+                </label>
+
+                <span class="hint">الحد الأقصى للملف: 50 MB</span>
+
+                <input
+                    id="fileInput"
+                    type="file"
+                    accept="application/pdf,.pdf"
+                >
+            </div>
+
+            <div class="file-box" id="fileBox">
+                <div class="file-symbol">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6 2h8l4 4v16H6z"/>
+      <path d="M14 2v5h5"/>
+    </svg>
+</div>
+
+                <div class="file-info">
+                    <div class="file-name" id="fileName"></div>
+                    <div class="file-size" id="fileSize"></div>
+                </div>
+
+                <button class="remove-btn" id="removeBtn" type="button">
+                    ×
+                </button>
+            </div>
+
+            <button class="compress-btn" id="compressBtn" type="button">
+                ضغط الملف الآن
+            </button>
+
+            <div class="status" id="status">
+                <div class="spinner"></div>
+                <p>جاري ضغط ملف PDF...</p>
+            </div>
+
+            <div class="result" id="result">
+                <div class="result-head">
+                    <div class="success-icon">✓</div>
+                    <div>
+                        <h3>تم ضغط الملف بنجاح</h3>
+                        <p>ملفك أصبح جاهزًا للتحميل.</p>
+                    </div>
+                </div>
+
+                <div class="stats">
+                    <div class="stat">
+                        <span>الحجم الأصلي</span>
+                        <strong id="originalSize">—</strong>
+                    </div>
+
+                    <div class="stat">
+                        <span>الحجم الجديد</span>
+                        <strong id="compressedSize">—</strong>
+                    </div>
+
+                    <div class="stat">
+                        <span>تم التوفير</span>
+                        <strong id="savedPercent">—</strong>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <a class="download-btn" id="downloadBtn" href="#">
+                        تحميل PDF المضغوط
+                    </a>
+
+                    <button class="again-btn" id="againBtn" type="button">
+                        ضغط ملف آخر
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</main>
+
+<footer>
+    © 2026 ToolBox — أدوات مجانية وسريعة
+</footer>
+
+<script>
+    const fileInput = document.getElementById("fileInput");
+    const dropzone = document.getElementById("dropzone");
+    const fileBox = document.getElementById("fileBox");
+    const fileName = document.getElementById("fileName");
+    const fileSize = document.getElementById("fileSize");
+    const removeBtn = document.getElementById("removeBtn");
+    const compressBtn = document.getElementById("compressBtn");
+    const status = document.getElementById("status");
+    const result = document.getElementById("result");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const againBtn = document.getElementById("againBtn");
+
+    let selectedFile = null;
+    let compressedUrl = null;
+
+    function openCompressor() {
+        const workspace = document.getElementById("workspace");
+        const card = document.getElementById("compressCard");
+
+        workspace.classList.add("visible");
+        card.classList.add("active");
+
+        setTimeout(() => {
+            workspace.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }, 50);
+    }
+
+    function formatSize(bytes) {
+        if (bytes < 1024) return bytes + " B";
+
+        const kb = bytes / 1024;
+        if (kb < 1024) return kb.toFixed(1) + " KB";
+
+        const mb = kb / 1024;
+        return mb.toFixed(2) + " MB";
+    }
+
+    function setFile(file) {
+        if (!file) return;
+
+        if (
+            file.type !== "application/pdf" &&
+            !file.name.toLowerCase().endsWith(".pdf")
+        ) {
+            alert("من فضلك اختر ملف PDF فقط.");
+            return;
+        }
+
+        if (file.size > 50 * 1024 * 1024) {
+            alert("حجم الملف أكبر من الحد المسموح وهو 50 MB.");
+            return;
+        }
+
+        selectedFile = file;
+
+        fileName.textContent = file.name;
+        fileSize.textContent = formatSize(file.size);
+
+        fileBox.classList.add("visible");
+        compressBtn.classList.add("visible");
+        result.classList.remove("visible");
+        status.classList.remove("visible");
+    }
+
+    fileInput.addEventListener("change", () => {
+        setFile(fileInput.files[0]);
+    });
+
+    ["dragenter", "dragover"].forEach(eventName => {
+        dropzone.addEventListener(eventName, event => {
+            event.preventDefault();
+            dropzone.classList.add("dragover");
+        });
+    });
+
+    ["dragleave", "drop"].forEach(eventName => {
+        dropzone.addEventListener(eventName, event => {
+            event.preventDefault();
+            dropzone.classList.remove("dragover");
+        });
+    });
+
+    dropzone.addEventListener("drop", event => {
+        setFile(event.dataTransfer.files[0]);
+    });
+
+    removeBtn.addEventListener("click", resetTool);
+
+    againBtn.addEventListener("click", resetTool);
+
+    function resetTool() {
+        selectedFile = null;
+        fileInput.value = "";
+
+        fileBox.classList.remove("visible");
+        compressBtn.classList.remove("visible");
+        status.classList.remove("visible");
+        result.classList.remove("visible");
+
+        if (compressedUrl) {
+            URL.revokeObjectURL(compressedUrl);
+            compressedUrl = null;
+        }
+
+        downloadBtn.removeAttribute("href");
+    }
+
+    compressBtn.addEventListener("click", async () => {
+        if (!selectedFile) return;
+
+        compressBtn.disabled = true;
+        compressBtn.textContent = "جاري الضغط...";
+        status.classList.add("visible");
+        result.classList.remove("visible");
+
+        try {
+            const response = await fetch("/compress", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/pdf"
+                },
+                body: selectedFile
+            });
+
+            if (!response.ok) {
+                throw new Error("Compression failed");
+            }
+
+            const blob = await response.blob();
+
+            if (compressedUrl) {
+                URL.revokeObjectURL(compressedUrl);
+            }
+
+            compressedUrl = URL.createObjectURL(blob);
+
+            const original = selectedFile.size;
+            const compressed = blob.size;
+
+            let saved = 0;
+
+            if (original > 0) {
+                saved = ((original - compressed) / original) * 100;
+            }
+
+            document.getElementById("originalSize").textContent =
+                formatSize(original);
+
+            document.getElementById("compressedSize").textContent =
+                formatSize(compressed);
+
+            document.getElementById("savedPercent").textContent =
+                saved > 0
+                    ? saved.toFixed(1) + "%"
+                    : "0%";
+
+            downloadBtn.href = compressedUrl;
+            downloadBtn.download = "ToolBox-compressed.pdf";
+
+            status.classList.remove("visible");
+            result.classList.add("visible");
+
+        } catch (error) {
+            status.classList.remove("visible");
+            alert("حدث خطأ أثناء ضغط الملف. حاول مرة أخرى.");
+        } finally {
+            compressBtn.disabled = false;
+            compressBtn.textContent = "ضغط الملف الآن";
+        }
+    });
+</script>
+
+
+
+
+<section class="workspace" id="splitWorkspace" hidden>
+    <div class="workspace-header">
+        <h2>تقسيم PDF</h2>
+        <button type="button" class="workspace-close" onclick="closeSplitTool()">×</button>
+    </div>
+
+    <p>ارفع ملف PDF وحدد الصفحات التي تريد استخراجها.</p>
+
+    <div class="upload-box" id="splitUploadBox">
+        <input type="file" id="splitFile" accept=".pdf,application/pdf" hidden>
+        <div>اسحب ملف PDF هنا أو اضغط لاختيار ملف</div>
+        <button type="button" class="tool-action" onclick="document.getElementById('splitFile').click()">اختيار ملف PDF</button>
+    </div>
+
+    <div id="splitFileInfo" hidden></div>
+
+    <div class="split-pages-field">
+        <label for="splitPages">الصفحات المطلوبة</label>
+        <input
+            type="text"
+            id="splitPages"
+            placeholder="مثال: 1-3 أو 2,5,8"
+            inputmode="text"
+        >
+    </div>
+
+    <button type="button" class="primary-btn" id="splitBtn" onclick="splitPDF()">
+        تقسيم PDF
+    </button>
+
+    <div class="result" id="splitResult"></div>
+</section>
+
+<section class="workspace" id="pdfJpgWorkspace" hidden>
+    <div class="workspace-header">
+        <h2>تحويل PDF إلى JPG</h2>
+        <button type="button" class="workspace-close" onclick="closePdfJpgTool()">×</button>
+    </div>
+
+    <p>حوّل صفحات ملف PDF إلى صور JPG بسهولة.</p>
+
+    <div class="upload-box" id="pdfJpgUploadBox">
+        <input type="file" id="pdfJpgFile" accept=".pdf,application/pdf" hidden>
+        <div>اسحب ملف PDF هنا أو اضغط لاختيار ملف</div>
+        <button type="button" class="tool-action" onclick="document.getElementById('pdfJpgFile').click()">اختيار ملف PDF</button>
+    </div>
+
+    <div id="pdfJpgFileInfo" hidden></div>
+
+    <div class="split-pages-field">
+        <label for="pdfJpgPages">الصفحات المراد تحويلها</label>
+        <input
+            type="text"
+            id="pdfJpgPages"
+            placeholder="اتركها فارغة لكل الصفحات — مثال: 1-3 أو 2,5,8"
+            inputmode="text"
+        >
+    </div>
+
+    <button type="button" class="primary-btn" id="pdfJpgBtn" onclick="pdfToJpg()">
+        تحويل إلى JPG
+    </button>
+
+    <div class="result" id="pdfJpgResult"></div>
+</section>
+
+<section class="workspace" id="mergeWorkspace" hidden>
+    <div class="workspace-header">
+        <h2>دمج PDF</h2>
+        <button type="button" class="workspace-close" onclick="closeMergeTool()">×</button>
+    </div>
+
+    <p>ارفع عدة ملفات PDF وادمجها في ملف واحد بالترتيب الذي تختاره.</p>
+
+    <div class="upload-box" id="mergeUploadBox">
+        <input type="file" id="mergeFiles" accept=".pdf,application/pdf" multiple hidden>
+        <div>اسحب ملفات PDF هنا أو اضغط لاختيار الملفات</div>
+        <button type="button" class="tool-action" onclick="document.getElementById('mergeFiles').click()">اختيار ملفات PDF</button>
+    </div>
+
+    <div id="mergeFileInfo" hidden></div>
+
+    <button type="button" class="primary-btn" id="mergeBtn" onclick="mergePDF()">
+        دمج PDF
+    </button>
+
+    <div class="result" id="mergeResult"></div>
+</section>
+
+<section class="workspace" id="excelWorkspace" hidden>
+    <div class="workspace-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 3h8l4 4v14H6z"/>
+            <path d="M14 3v5h5"/>
+            <path d="M9 12l6 6M15 12l-6 6"/>
+        </svg>
+    </div>
+
+    <h2>تحويل Excel إلى PDF</h2>
+    <p>ارفع ملف Excel بصيغة XLSX وسيتم تحويله إلى PDF.</p>
+
+    <div class="dropzone" id="excelDropzone">
+        <div class="upload-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 16V4"/>
+                <path d="M7 9l5-5 5 5"/>
+                <path d="M5 20h14"/>
+            </svg>
+        </div>
+        <strong>اسحب ملف Excel هنا</strong>
+        <span>أو اضغط لاختيار ملف XLSX</span>
+        <input type="file" id="excelInput"
+               accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+               hidden>
+    </div>
+
+    <div class="file-box" id="excelFileBox" hidden>
+        <div class="file-symbol">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 2h8l4 4v16H6z"/>
+                <path d="M14 2v5h5"/>
+            </svg>
+        </div>
+        <div>
+            <strong id="excelFileName"></strong>
+            <span id="excelFileSize"></span>
+        </div>
+        <button type="button" id="excelRemoveBtn">×</button>
+    </div>
+
+    <button class="primary-btn" id="excelConvertBtn" disabled>
+        تحويل إلى PDF
+    </button>
+
+    <div class="status" id="excelStatus"></div>
+
+    <div class="result" id="excelResult">
+        <p id="excelResultText"></p>
+        <a class="primary-btn" id="excelDownloadBtn" href="#" download>
+            تحميل PDF
+        </a>
+        <button class="secondary-btn" id="excelAgainBtn">
+            تحويل ملف آخر
+        </button>
+    </div>
+</section>
+
+
+<script>
+function openSplitTool() {
+    const workspace = document.getElementById("splitWorkspace");
+    workspace.hidden = false;
+    workspace.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function closeSplitTool() {
+    document.getElementById("splitWorkspace").hidden = true;
+}
+
+document.getElementById("splitFile").addEventListener("change", function () {
+    const info = document.getElementById("splitFileInfo");
+    if (this.files.length) {
+        info.textContent = "الملف: " + this.files[0].name;
+        info.hidden = false;
+    }
+});
+
+async function splitPDF() {
+    const fileInput = document.getElementById("splitFile");
+    const pagesInput = document.getElementById("splitPages");
+    const result = document.getElementById("splitResult");
+
+    if (!fileInput.files.length) {
+        result.textContent = "اختر ملف PDF أولًا.";
+        result.classList.add("visible");
+        return;
+    }
+
+    if (!pagesInput.value.trim()) {
+        result.textContent = "حدد الصفحات المطلوبة.";
+        result.classList.add("visible");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", fileInput.files[0]);
+    formData.append("pages", pagesInput.value.trim());
+
+    result.textContent = "جاري تقسيم الملف...";
+    result.classList.add("visible");
+
+    try {
+        const response = await fetch("/split-pdf", {
+            method: "POST",
+            body: formData
+        });
+
+        if (!response.ok) {
+            const text = await response.text();
+            throw new Error(text || "فشل تقسيم PDF");
+        }
+
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "ToolBox-split.pdf";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+
+        result.textContent = "تم تقسيم PDF بنجاح.";
+    } catch (error) {
+        result.textContent = "حدث خطأ أثناء تقسيم PDF.";
+    }
+}
+
+function openMergeTool() {
+    const workspace = document.getElementById("mergeWorkspace");
+    workspace.hidden = false;
+    workspace.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function closeMergeTool() {
+    document.getElementById("mergeWorkspace").hidden = true;
+}
+
+document.getElementById("mergeFiles").addEventListener("change", function () {
+    const info = document.getElementById("mergeFileInfo");
+
+    if (this.files.length) {
+        info.textContent = "تم اختيار " + this.files.length + " ملفات PDF";
+        info.hidden = false;
+    } else {
+        info.hidden = true;
+    }
+});
+
+async function mergePDF() {
+    const fileInput = document.getElementById("mergeFiles");
+    const result = document.getElementById("mergeResult");
+
+    if (fileInput.files.length < 2) {
+        result.textContent = "اختر ملفي PDF على الأقل.";
+        result.classList.add("visible");
+        return;
+    }
+
+    const formData = new FormData();
+
+    for (const file of fileInput.files) {
+        formData.append("files", file);
+    }
+
+    result.textContent = "جاري دمج ملفات PDF...";
+    result.classList.add("visible");
+
+    try {
+        const response = await fetch("/merge-pdf", {
+            method: "POST",
+            body: formData
+        });
+
+        if (!response.ok) {
+            const text = await response.text();
+            throw new Error(text || "فشل دمج PDF");
+        }
+
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+
+        a.href = url;
+        a.download = "ToolBox-merged.pdf";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+
+        URL.revokeObjectURL(url);
+
+        result.textContent = "تم دمج ملفات PDF بنجاح.";
+    } catch (error) {
+        result.textContent = "حدث خطأ أثناء دمج PDF.";
+    }
+}
+
+function openExcelTool() {
+    const workspace = document.getElementById("excelWorkspace");
+    workspace.hidden = false;
+    workspace.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+(() => {
+    const input = document.getElementById("excelInput");
+    const dropzone = document.getElementById("excelDropzone");
+    const fileBox = document.getElementById("excelFileBox");
+    const fileName = document.getElementById("excelFileName");
+    const fileSize = document.getElementById("excelFileSize");
+    const removeBtn = document.getElementById("excelRemoveBtn");
+    const convertBtn = document.getElementById("excelConvertBtn");
+    const status = document.getElementById("excelStatus");
+    const result = document.getElementById("excelResult");
+    const resultText = document.getElementById("excelResultText");
+    const downloadBtn = document.getElementById("excelDownloadBtn");
+    const againBtn = document.getElementById("excelAgainBtn");
+
+    let selectedFile = null;
+
+    function formatSize(bytes) {
+        if (bytes < 1024) return bytes + " B";
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+        return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+    }
+
+    function selectFile(file) {
+        if (!file || !file.name.toLowerCase().endsWith(".xlsx")) {
+            status.textContent = "يرجى اختيار ملف Excel بصيغة XLSX.";
+            return;
+        }
+
+        selectedFile = file;
+        fileName.textContent = file.name;
+        fileSize.textContent = formatSize(file.size);
+        fileBox.hidden = false;
+        convertBtn.disabled = false;
+        status.textContent = "";
+        result.hidden = true;
+        result.classList.remove("visible");
+    }
+
+    function reset() {
+        selectedFile = null;
+        input.value = "";
+        fileBox.hidden = true;
+        convertBtn.disabled = true;
+        status.textContent = "";
+        result.hidden = true;
+        result.classList.remove("visible");
+        downloadBtn.removeAttribute("href");
+    }
+
+    dropzone.addEventListener("click", () => input.click());
+
+    input.addEventListener("change", () => {
+        if (input.files.length) selectFile(input.files[0]);
+    });
+
+    removeBtn.addEventListener("click", reset);
+    againBtn.addEventListener("click", reset);
+
+    convertBtn.addEventListener("click", async () => {
+        if (!selectedFile) return;
+
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+
+        convertBtn.disabled = true;
+        status.textContent = "جارٍ تحويل الملف...";
+        result.hidden = true;
+        result.classList.remove("visible");
+
+        try {
+            const response = await fetch("/excel-to-pdf", {
+                method: "POST",
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error(await response.text());
+            }
+
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+
+            downloadBtn.href = url;
+            resultText.textContent = "تم تحويل ملف Excel إلى PDF بنجاح.";
+            result.hidden = false;
+            result.classList.add("visible");
+            status.textContent = "";
+        } catch (error) {
+            status.textContent = "حدث خطأ أثناء تحويل الملف.";
+        } finally {
+            convertBtn.disabled = false;
+        }
+    });
+})();
+</script>
+
+<section class="workspace" id="wordWorkspace" hidden>
+    <div class="workspace-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 2h8l4 4v16H6z"/>
+            <path d="M14 2v5h5"/>
+            <path d="M9 13h6"/>
+            <path d="M9 17h6"/>
+        </svg>
+    </div>
+
+    <h2>تحويل Word إلى PDF</h2>
+    <p>ارفع ملف Word بصيغة DOCX وسيتم تحويله إلى PDF.</p>
+
+    <div class="dropzone" id="wordDropzone">
+        <div class="upload-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 16V4"/>
+                <path d="M7 9l5-5 5 5"/>
+                <path d="M5 20h14"/>
+            </svg>
+        </div>
+        <strong>اسحب ملف Word هنا</strong>
+        <span>أو اضغط لاختيار ملف DOCX</span>
+        <input type="file" id="wordInput" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+    </div>
+
+    <div class="file-box" id="wordFileBox" hidden>
+        <div class="file-symbol">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 2h8l4 4v16H6z"/>
+                <path d="M14 2v5h5"/>
+            </svg>
+        </div>
+        <div>
+            <strong id="wordFileName"></strong>
+            <span id="wordFileSize"></span>
+        </div>
+        <button type="button" id="wordRemoveBtn">×</button>
+    </div>
+
+    <button class="primary-btn" id="wordConvertBtn" disabled>تحويل إلى PDF</button>
+
+    <div class="status" id="wordStatus"></div>
+
+    <div class="result" id="wordResult">
+        <p id="wordResultText"></p>
+        <a class="primary-btn" id="wordDownloadBtn" href="#" download>تحميل PDF</a>
+        <button class="secondary-btn" id="wordAgainBtn">تحويل ملف آخر</button>
+    </div>
+</section>
+
+
+<script>
+function openWordTool() {
+    const workspace = document.getElementById("wordWorkspace");
+    workspace.hidden = false;
+    workspace.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+(() => {
+    const card = document.querySelector('[data-tool="word2pdf"]');
+    const workspace = document.getElementById('wordWorkspace');
+    const input = document.getElementById('wordInput');
+    const dropzone = document.getElementById('wordDropzone');
+    const fileBox = document.getElementById('wordFileBox');
+    const fileName = document.getElementById('wordFileName');
+    const fileSize = document.getElementById('wordFileSize');
+    const removeBtn = document.getElementById('wordRemoveBtn');
+    const convertBtn = document.getElementById('wordConvertBtn');
+    const status = document.getElementById('wordStatus');
+    const result = document.getElementById('wordResult');
+    const resultText = document.getElementById('wordResultText');
+    const downloadBtn = document.getElementById('wordDownloadBtn');
+    const againBtn = document.getElementById('wordAgainBtn');
+
+    let selectedFile = null;
+
+    function formatSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+    }
+
+    function selectFile(file) {
+        if (!file || !file.name.toLowerCase().endsWith('.docx')) {
+            status.textContent = 'يرجى اختيار ملف Word بصيغة DOCX.';
+            return;
+        }
+
+        selectedFile = file;
+        fileName.textContent = file.name;
+        fileSize.textContent = formatSize(file.size);
+        fileBox.hidden = false;
+        convertBtn.disabled = false;
+        status.textContent = '';
+        result.classList.remove('visible');
+        result.hidden = true;
+    }
+
+    function reset() {
+        selectedFile = null;
+        input.value = '';
+        fileBox.hidden = true;
+        convertBtn.disabled = true;
+        status.textContent = '';
+        result.classList.remove('visible');
+        result.hidden = true;
+        downloadBtn.removeAttribute('href');
+    }
+
+    card?.addEventListener('click', () => {
+        workspace.hidden = false;
+        workspace.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    dropzone?.addEventListener('click', () => input.click());
+
+    input?.addEventListener('change', () => {
+        if (input.files.length) selectFile(input.files[0]);
+    });
+
+    removeBtn?.addEventListener('click', reset);
+
+    againBtn?.addEventListener('click', reset);
+
+    convertBtn?.addEventListener('click', async () => {
+        if (!selectedFile) return;
+
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+
+        convertBtn.disabled = true;
+        status.textContent = 'جارٍ تحويل الملف...';
+        result.classList.remove('visible');
+        result.hidden = true;
+
+        try {
+            const response = await fetch('/word-to-pdf', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error(await response.text());
+            }
+
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+
+            downloadBtn.href = url;
+            resultText.textContent = 'تم تحويل ملف Word إلى PDF بنجاح.';
+            result.hidden = false;
+            result.classList.add('visible');
+            status.textContent = '';
+        } catch (error) {
+            status.textContent = 'حدث خطأ أثناء تحويل الملف.';
+        } finally {
+            convertBtn.disabled = false;
+        }
+    });
+})();
+</script>
+
+<section class="workspace image-workspace" id="imageWorkspace" hidden>
+  <div class="workspace-head">
+    <div>
+      <h2 id="imageToolTitle">أداة الصور</h2>
+      <p id="imageToolDescription"></p>
+    </div>
+    <button class="remove-btn" onclick="closeImageTool()">إغلاق</button>
+  </div>
+
+  <div class="dropzone">
+    <input id="imageInput" type="file"
+           accept=".jpg,.jpeg,.png,.webp"
+           multiple hidden>
+    <button class="tool-action" onclick="document.getElementById('imageInput').click()">
+      اختيار الصور
+    </button>
+    <p id="imageHint">اختر صورة أو أكثر</p>
+  </div>
+
+  <div id="imageFiles" class="image-file-list"></div>
+
+  <div id="imageControls" class="image-controls" hidden>
+    <div class="image-field" id="qualityField">
+      <label for="imageQuality">جودة الصورة</label>
+      <input id="imageQuality" type="range" min="20" max="95" value="82">
+      <span id="qualityValue">82%</span>
+    </div>
+
+    <div class="resize-fields" id="resizeFields" hidden>
+      <div>
+        <label for="imageWidth">العرض</label>
+        <input id="imageWidth" type="number" min="1" max="10000" placeholder="العرض">
+      </div>
+      <div>
+        <label for="imageHeight">الارتفاع</label>
+        <input id="imageHeight" type="number" min="1" max="10000" placeholder="الارتفاع">
+      </div>
+      <label class="check-row">
+        <input id="keepRatio" type="checkbox" checked>
+        الحفاظ على التناسب
+      </label>
+    </div>
+
+    <button class="tool-action primary-action" id="imageActionBtn"
+            onclick="runImageTool()">
+      تنفيذ
+    </button>
+  </div>
+
+  <div id="imageStatus" class="status"></div>
+
+  <div id="imageResult" class="result" hidden>
+    <div id="imageResultText"></div>
+    <a id="imageDownloadBtn" class="tool-action" href="#" download>
+      تحميل النتيجة
+    </a>
+  </div>
+</section>
+
+<script>
+let imageToolMode = "";
+let imageFilesSelected = [];
+
+function openPdfJpgTool() {
+  const workspace = document.getElementById("pdfJpgWorkspace");
+  workspace.hidden = false;
+  workspace.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function closePdfJpgTool() {
+  document.getElementById("pdfJpgWorkspace").hidden = true;
+}
+
+document.getElementById("pdfJpgFile").addEventListener("change", function () {
+  const info = document.getElementById("pdfJpgFileInfo");
+
+  if (this.files.length) {
+    info.textContent = this.files[0].name;
+    info.hidden = false;
+  } else {
+    info.hidden = true;
+  }
+});
+
+async function pdfToJpg() {
+  const fileInput = document.getElementById("pdfJpgFile");
+  const pagesInput = document.getElementById("pdfJpgPages");
+  const result = document.getElementById("pdfJpgResult");
+  const button = document.getElementById("pdfJpgBtn");
+
+  if (!fileInput.files.length) {
+    result.textContent = "اختر ملف PDF أولًا.";
+    result.classList.add("visible");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("file", fileInput.files[0]);
+
+  const pages = pagesInput.value.trim();
+  if (pages) formData.append("pages", pages);
+
+  button.disabled = true;
+  result.textContent = pages ? "جاري تحويل الصفحات المحددة..." : "جاري تحويل كل الصفحات...";
+  result.classList.add("visible");
+
+  try {
+    const response = await fetch("/pdf-to-jpg", { method: "POST", body: formData });
+    if (!response.ok) throw new Error("فشل تحويل PDF");
+
+    const blob = await response.blob();
+    const filename = fileInput.files[0].name.replace(/\.pdf$/i, "") + "-JPG.zip";
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.target = "_blank";
+    a.rel = "noopener";
+    document.body.appendChild(a);
+    a.click();
+
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+      a.remove();
+    }, 1000);
+
+    result.textContent = "تم تحويل PDF إلى JPG بنجاح.";
+  } catch (error) {
+    result.textContent = "حدث خطأ أثناء تحويل PDF إلى JPG.";
+  } finally {
+    button.disabled = false;
+  }
+}
+
+function openImageTool(mode) {
+  imageToolMode = mode;
+
+  const workspace = document.getElementById("imageWorkspace");
+  const title = document.getElementById("imageToolTitle");
+  const description = document.getElementById("imageToolDescription");
+  const hint = document.getElementById("imageHint");
+  const input = document.getElementById("imageInput");
+  const qualityField = document.getElementById("qualityField");
+  const resizeFields = document.getElementById("resizeFields");
+  const controls = document.getElementById("imageControls");
+
+  // Reset tool-specific controls every time a tool is opened
+  qualityField.hidden = true;
+  resizeFields.hidden = true;
+
+  if (mode === "jpg2pdf") {
+    title.textContent = "تحويل JPG إلى PDF";
+    description.textContent = "اختر صورة واحدة أو عدة صور لتحويلها إلى ملف PDF واحد.";
+    hint.textContent = "يمكن اختيار عدة صور JPG";
+    input.accept = ".jpg,.jpeg";
+    input.multiple = true;
+    qualityField.hidden = true;
+    resizeFields.hidden = true;
+  } else if (mode === "compress") {
+    title.textContent = "ضغط الصور";
+    description.textContent = "قلّل حجم الصورة مع التحكم في الجودة.";
+    hint.textContent = "اختر صورة واحدة";
+    input.accept = ".jpg,.jpeg,.png,.webp";
+    input.multiple = false;
+    qualityField.hidden = false;
+    resizeFields.hidden = true;
+  } else {
+    title.textContent = "تغيير حجم الصور";
+    description.textContent = "غيّر أبعاد الصورة حسب المقاس المطلوب.";
+    hint.textContent = "اختر صورة واحدة";
+    input.accept = ".jpg,.jpeg,.png,.webp";
+    input.multiple = false;
+    qualityField.hidden = true;
+    resizeFields.hidden = false;
+  }
+
+  workspace.hidden = false;
+  controls.hidden = true;
+  document.getElementById("imageResult").hidden = true;
+  document.getElementById("imageStatus").textContent = "";
+  imageFilesSelected = [];
+  document.getElementById("imageFiles").innerHTML = "";
+  input.value = "";
+
+  workspace.scrollIntoView({behavior: "smooth", block: "start"});
+}
+
+function closeImageTool() {
+  document.getElementById("imageWorkspace").hidden = true;
+}
+
+document.getElementById("imageInput").addEventListener("change", function () {
+  imageFilesSelected = Array.from(this.files);
+
+  const list = document.getElementById("imageFiles");
+  const controls = document.getElementById("imageControls");
+
+  list.innerHTML = imageFilesSelected.map(file => `
+    <div class="image-file">
+      <span>${escapeHtml(file.name)}</span>
+      <small>${formatBytes(file.size)}</small>
+    </div>
+  `).join("");
+
+  controls.hidden = imageFilesSelected.length === 0;
+});
+
+document.getElementById("imageQuality").addEventListener("input", function () {
+  document.getElementById("qualityValue").textContent = this.value + "%";
+});
+
+async function runImageTool() {
+  if (!imageFilesSelected.length) return;
+
+  const status = document.getElementById("imageStatus");
+  const result = document.getElementById("imageResult");
+  const resultText = document.getElementById("imageResultText");
+  const download = document.getElementById("imageDownloadBtn");
+
+  status.textContent = "جاري المعالجة...";
+  result.hidden = true;
+
+  const form = new FormData();
+
+  if (imageToolMode === "jpg2pdf") {
+    imageFilesSelected.forEach(file => form.append("files", file));
+
+    try {
+      const response = await fetch("/jpg-to-pdf", {
+        method: "POST",
+        body: form
+      });
+
+      if (!response.ok) throw new Error(await response.text());
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+
+      download.href = url;
+      download.download = "ToolBox-images.pdf";
+      resultText.textContent = "تم تحويل الصور إلى PDF بنجاح.";
+      result.hidden = false;
+      result.classList.add("visible");
+      status.textContent = "";
+    } catch (error) {
+      status.textContent = "حدث خطأ أثناء التحويل.";
+    }
+
+    return;
+  }
+
+  form.append("files", imageFilesSelected[0]);
+
+  let endpoint = "";
+
+  if (imageToolMode === "compress") {
+    endpoint = "/image-compress";
+    form.append("quality", document.getElementById("imageQuality").value);
+  } else {
+    endpoint = "/image-resize";
+    form.append("width", document.getElementById("imageWidth").value);
+    form.append("height", document.getElementById("imageHeight").value);
+    form.append(
+      "keep_ratio",
+      document.getElementById("keepRatio").checked ? "true" : "false"
+    );
+  }
+
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      body: form
+    });
+
+    if (!response.ok) throw new Error(await response.text());
+
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+
+    download.href = url;
+    download.download =
+      imageToolMode === "compress"
+        ? "ToolBox-compressed"
+        : "ToolBox-resized";
+
+    if (imageToolMode === "compress") {
+      const original = imageFilesSelected[0].size;
+      const newSize = blob.size;
+      const saved = original
+        ? Math.max(0, ((original - newSize) / original) * 100)
+        : 0;
+
+      resultText.textContent =
+        `تم ضغط الصورة. الحجم: ${formatBytes(original)} ← ${formatBytes(newSize)} ` +
+        `(${saved.toFixed(1)}% توفير).`;
+    } else {
+      resultText.textContent = "تم تغيير حجم الصورة بنجاح.";
+    }
+
+    result.hidden = false;
+    result.classList.add("visible");
+    status.textContent = "";
+  } catch (error) {
+    status.textContent = "حدث خطأ أثناء معالجة الصورة.";
+  }
+}
+
+function formatBytes(bytes) {
+  if (bytes < 1024) return bytes + " B";
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+  return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+}
+
+function escapeHtml(text) {
+  return text.replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  }[char]));
+}
+</script>
+
+<style>
+.image-workspace {
+  margin-top: 32px;
+}
+
+.image-workspace[hidden] {
+  display: none;
+}
+
+.workspace-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+.workspace-head h2 {
+  margin: 0 0 5px;
+}
+
+.workspace-head p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.image-file-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.image-file {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+}
+
+.image-file small {
+  color: var(--muted);
+}
+
+.image-controls {
+  margin-top: 18px;
+  display: grid;
+  gap: 15px;
+}
+
+.image-field label,
+.resize-fields label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.image-field input[type="range"] {
+  width: 100%;
+}
+
+.resize-fields[hidden] {
+  display: none !important;
+}
+
+.resize-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.resize-fields input[type="number"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--white);
+}
+
+.check-row {
+  grid-column: 1 / -1;
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+}
+
+.primary-action {
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .resize-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tool-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 14px;
+    border: 1px solid var(--primary);
+    border-radius: 10px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .18s ease;
+    box-sizing: border-box;
+}
+
+.tool-action:hover {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.tool-action:active {
+    transform: translateY(0);
+}
+
+.tool-action:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.tool .tool-action {
+    margin-top: 12px;
+}
+
+</style>
+
+</body>
+</html>
