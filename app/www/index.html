@@ -2128,6 +2128,30 @@ function escapeHtml(text) {
 }
 </script>
 
+<script>
+(function () {
+  const tool = new URLSearchParams(window.location.search).get("tool");
+
+  if (!tool) return;
+
+  const actions = {
+    "compress-pdf": () => openCompressor(),
+    "split-pdf": () => openSplitTool(),
+    "merge-pdf": () => openMergeTool(),
+    "excel-to-pdf": () => openExcelTool(),
+    "word-to-pdf": () => openWordTool(),
+    "pdf-to-jpg": () => openPdfJpgTool(),
+    "jpg-to-pdf": () => openImageTool("jpg2pdf"),
+    "compress-image": () => openImageTool("compress"),
+    "resize-image": () => openImageTool("resize")
+  };
+
+  if (actions[tool]) {
+    setTimeout(actions[tool], 100);
+  }
+})();
+</script>
+
 <style>
 .image-workspace {
   margin-top: 32px;
