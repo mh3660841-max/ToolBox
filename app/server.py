@@ -743,8 +743,9 @@ doc.build(story)
 
 os.chdir(WEB_DIR)
 
-server = HTTPServer(("0.0.0.0", 8081), ToolBoxHandler)
+PORT = int(os.environ.get("PORT", "8081"))
+server = HTTPServer(("0.0.0.0", PORT), ToolBoxHandler)
 
-print("ToolBox running on http://127.0.0.1:8081")
+print(f"ToolBox running on http://127.0.0.1:{PORT}")
 
 server.serve_forever()
